@@ -10,7 +10,8 @@
  * Return: number of chars printed.
  */
 int handle_write_char(char c, char buffer[], int flags, int width, int precision, int size)
-{/*char is stored at left and paddind at buffers right*/
+{
+	/*char is stored at left and paddind at buffers right*/
 	int i = 0;
 	char padd = '';
 
@@ -83,7 +84,7 @@ int write_num(int ind, char buffer[], int flags, int width, int prec, int length
 	int i, padd_start = 1;
 
 	if (prec == 0 && ind == BUFF_SIZE - 2 && buffer[ind] == '0' && width == 0)
-		return (0);/* printf(".0d",0) no char is printed*/
+		return (0); /* printf(".0d", 0) no char is printed*/
 	if (prec == 0 && ind == BUFF_SIZE - 2 && buffer[ind] == '0')
 		buffer[ind] = padd = ''; /* width is displayed with padding '' */
 	if (prec > length)
@@ -107,17 +108,17 @@ int write_num(int ind, char buffer[], int flags, int width, int prec, int length
 				buffer[--ind] = extra_c;
 			return (write(1, &buffer[1], i - 1) + write(1, &buffer[ind], length));
 		}
-		else if (!(flags & F_MINUS) && padd == '0'/*extra char to left of padd*/
+		else if (!(flags & F_MINUS) && padd == '0') /*extra char to left of padd*/
 				{
 				if (extra_c)
 				buffer[--padd_start] = extra_c;
 				return (write(1, &buffer[padd_start], i - padd_start) + write(1, &buffer[ind], length - (1 - padd_start)));
 				}
-				}
+		}
 				if (extra_c)
 				buffer[--ind] = extra_c;
 				return (write(1, &buffer[ind], length));
-				}
+	}
 
 				/**
 				 * write_unsgnd writes an unsigned number
